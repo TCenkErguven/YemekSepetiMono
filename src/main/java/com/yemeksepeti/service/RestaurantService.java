@@ -12,6 +12,7 @@ import com.yemeksepeti.repository.entity.Restaurant;
 import com.yemeksepeti.utility.ServiceManager;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,10 +24,14 @@ public class RestaurantService extends ServiceManager<Restaurant,Long> {
     }
     public SaveRestaurantResponseDto save(SaveRestaurantRequestDto dto){
         Restaurant restaurant = IRestaurantMapper.INSTANCE.fromSaveRestaurantRequestDtoToRestaurant(dto);
+        List<Restaurant> restaurantList = restaurantRepository.findAll();
+        restaurantList.forEach(item -> {
+            if(item.getAddress().equals(restaurant.getAddress()))
+                throw new YemeksepetiManagerException(ErrorType.DUPLICATE_ADRESS);
+        });
         restaurantRepository.save(restaurant);
         return IRestaurantMapper.INSTANCE.fromRestaurantToSaveRestaurantResponseDto(restaurant);
     }
-
     public boolean existsByIdRestaurant(Long id){
        return restaurantRepository.existsById(id);
     }

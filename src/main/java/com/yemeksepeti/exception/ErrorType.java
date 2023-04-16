@@ -24,7 +24,8 @@ public enum ErrorType {
     ORDER_NOT_FOUND(5100,"Böyle bir order bulunamadı.",HttpStatus.NOT_FOUND),
     RESTAURANT_NO_ORDER(5200,"Bu restorandan bir order alınmadı",HttpStatus.NOT_FOUND),
     DUPLICATE_PRODUCT(5300,"Bu ürün, bu restorant için zaten tanımlanmıştır.",HttpStatus.BAD_REQUEST),
-    POINT_ERROR(5400,"Geçerli point aralığı 0-5 arasındadır.",HttpStatus.BAD_REQUEST);
+    POINT_ERROR(5400,"Geçerli point aralığı 0-5 arasındadır.",HttpStatus.BAD_REQUEST),
+    DUPLICATE_ADRESS(5500,"Mevcut address başka bir restoran içni kullanılmıştır.",HttpStatus.BAD_REQUEST);
 
 
     private int code;
